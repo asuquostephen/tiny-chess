@@ -3,21 +3,21 @@
 An entry for make.fun's [tiny-chess-01](https://make.fun/bounty/tiny-chess-01)
 bounty, "Build the strongest chess engine in 4 KB of Python".
 
-`main.py` is the whole engine — 4,061 bytes. It speaks to the
+`main.py` is the whole engine — 4,050 bytes. It speaks to the
 competition env over HTTP (`POST /game`, `POST /move`) and plays the
 house gauntlet: alpha-beta rungs from a depth-2 search to a 2M-node
 search.
 
 ## How it plays
 
-- Negamax alpha-beta search with a transposition table, late-move
-  reductions and check extensions, plus a quiescence search over
-  captures so tactical exchanges resolve past the horizon.
+- Negamax alpha-beta search with a transposition table, null-move
+  pruning, late-move reductions and check extensions, plus a
+  quiescence search over captures so tactical exchanges resolve
+  past the horizon.
 - Move ordering: transposition-table move first, then MVV-LVA
   captures, then killer moves.
 - Tapered evaluation: material and classic piece-square tables
-  blended between middlegame and endgame scores, plus a bishop-pair
-  bonus.
+  blended between middlegame and endgame scores.
 - Full rules inside the search: castling, en passant (including the
   pin case), promotions, repetition and fifty-move draws.
 - Deterministic: it searches to a fixed node budget (60,000 nodes a
